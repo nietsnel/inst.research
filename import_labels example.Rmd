@@ -1,0 +1,37 @@
+---
+title: "import_labels example"
+author: "Jordan Prendez"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The import_labels function is meant to to import SPSS ® style labels and attach them to a dataset in R. 
+Currently both the dataset and the definitions must be external files (i.e. files located on a local drive --not those already loaded into R)
+
+##Dataset format
+
+the import labels command accepts datasets with the variable in the the first row. Data values follow in each subsequent row. Values should be comma seperated and saved in a .txt file. 
+
+###Dataset format example
+
+
+![Dataset format example](C:\Users\jprendez\Documents\inst.research\dataset.jpg)
+
+the import labels command accepts definitions with the level of the variable (either string or numeric) followed by the variable definition. Levels that are strings must be surrounded by single quotes ''.
+
+Each new variable should start with a forward slash "/" (no quotes) and must match the variable name in the dataset (caps sensitive)
+
+![definition format example](C:\Users\jprendez\Documents\inst.research\definitions.jpg)
+
+
+
+
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
