@@ -2,7 +2,7 @@
 title: "import_labels example"
 author: "Jordan Prendez"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: word_document
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -23,11 +23,19 @@ the import labels command accepts datasets with the variable in the the first ro
 
 the import labels command accepts definitions with the level of the variable (either string or numeric) followed by the variable definition. Levels that are strings must be surrounded by single quotes ''.
 
-Each new variable should start with a forward slash "/" (no quotes) and must match the variable name in the dataset (caps sensitive)
+Each new variable should start with a forward slash "/" (no quotes) and must match the variable name in the dataset (case sensitive)
 
 ![definition format example](C:\Users\jprendez\Documents\inst.research\definitions.jpg)
 
 
+https://bitbucket.org/nietsnel/inst.research/src/a2a25913c8d1f94e7815bcfccf3551d8c9bc78e7/import_labels_example.html?at=master&fileviewer=file-view-default
+
+##Running the program Example
+
+dataset=path of the dataset file (with formating shown above)
+dataset=path of the definition file (with formating shown above)
+
+import_labels(dataset="C:/Users/jprendez/Desktop/ic2015.csv", definitions="C:/Users/jprendez/Desktop/definitions.txt")
 
 
 

@@ -1,11 +1,12 @@
 #' import labels function
-#' @description A function to import SPSS ®  style labels and attach them to a dataset in R
+#' @description A function to import SPSS ®  style labels and attach them to a dataset in R. Formatting instructions can be found in the PDF provided in the "See Also" section.
 #'
-#' @param dataset = path of the file containing the raw data (i.e. 1, and 0's not "YES" and "NO"). The only file format currently accepted is .csv
-#' @param definitions = path of the file containing definitions. The format of this file is shown below in table 1. File must be a .txt
+#' @param dataset = path of the file containing the raw data (i.e. 1, and 0's not "YES" and "NO"). The  file format currently accepted is .csv and .txt
+#' @param definitions = path of the file containing definitions. The format of this file is shown below in table 1. File must be a .txt.
 #' @return Returns dataset with attached labels
 #' @examples import_labels(dataset="C:/Users/jprendez/Desktop/ic2015.csv", definitions="C:/Users/jprendez/Desktop/definitions.txt")
-#' @keywords cats
+#' @seealso \url{bitbucket.org/nietsnel/inst.research/raw/d6b77da80f7d901ee569131326524f712ae4c7c5/import_labels_example1.pdf}
+#' @keywords IR
 #' @author Jordan L. Prendez, \email{jordanprendez@@gmail.com}
 #' @export
 #' @examples
@@ -15,6 +16,9 @@
 
 import_labels <- function(dataset, definitions){
 
+
+  if("haven" %in% rownames(installed.packages()) == FALSE) {install.packages("haven")}
+  if("stringr" %in% rownames(installed.packages()) == FALSE) {install.packages("stringr")}
   library(stringr)
   library(haven)
   df <- read.delim(definitions, header=FALSE, sep="'")
@@ -101,6 +105,7 @@ import_labels <- function(dataset, definitions){
       }#change variable column in dataframe (i.e. searches through list of variables in dataset)
     } #change variable in variable list (once the dataset has been searched--we move to next variable)
     starting_value <- (i+starting_value)
+    # browser()
     n <- n+1
   }
   #}

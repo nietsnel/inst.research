@@ -7,15 +7,15 @@
 import_labels(dataset, definitions)
 }
 \arguments{
-\item{dataset}{= path of the file containing the raw data (i.e. 1, and 0's not "YES" and "NO"). The only file format currently accepted is .csv}
+\item{dataset}{= path of the file containing the raw data (i.e. 1, and 0's not "YES" and "NO"). The  file format currently accepted is .csv and .txt}
 
-\item{definitions}{= path of the file containing definitions. The format of this file is shown below in table 1. File must be a .txt}
+\item{definitions}{= path of the file containing definitions. The format of this file is shown below in table 1. File must be a .txt.}
 }
 \value{
 Returns dataset with attached labels
 }
 \description{
-A function to import SPSS ®  style labels and attach them to a dataset in R
+A function to import SPSS ®  style labels and attach them to a dataset in R. Formatting instructions can be found in the PDF provided in the "See Also" section.
 }
 \examples{
 import_labels(dataset="C:/Users/jprendez/Desktop/ic2015.csv", definitions="C:/Users/jprendez/Desktop/definitions.txt")
@@ -23,5 +23,8 @@ import_labels(dataset="C:/Users/jprendez/Desktop/ic2015.csv", definitions="C:/Us
 \author{
 Jordan L. Prendez, \email{jordanprendez@gmail.com}
 }
-\keyword{cats}
+\seealso{
+\url{bitbucket.org/nietsnel/inst.research/raw/d6b77da80f7d901ee569131326524f712ae4c7c5/import_labels_example1.pdf}
+}
+\keyword{IR}
 
