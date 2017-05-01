@@ -19,9 +19,9 @@ A function to import multiple .txt or .csv files into R.
 }
 \examples{
 bulk_import(folder_path = "C:/Users/jprendez/Desktop/bulk_import2", merge=TRUE, file_type="txt")
+bulk_import()
 }
 \author{
 Jordan L. Prendez, \email{jordanprendez@gmail.com}
 }
 \keyword{IR}
-

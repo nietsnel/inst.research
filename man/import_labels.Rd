@@ -19,12 +19,13 @@ A function to import SPSS ®  style labels and attach them to a dataset in R. Fo
 }
 \examples{
 import_labels(dataset="C:/Users/jprendez/Desktop/ic2015.csv", definitions="C:/Users/jprendez/Desktop/definitions.txt")
+import_labels()
+Note:SPSS® is a registered trademarks of IBM in the United States.
+}
+\seealso{
+\url{https://github.com/nietsnel/inst.research/blob/master/import_labels_example1.pdf}
 }
 \author{
 Jordan L. Prendez, \email{jordanprendez@gmail.com}
 }
-\seealso{
-\url{bitbucket.org/nietsnel/inst.research/raw/d6b77da80f7d901ee569131326524f712ae4c7c5/import_labels_example1.pdf}
-}
 \keyword{IR}
-
