@@ -15,16 +15,25 @@
 
 
 import_labels <- function(dataset, definitions){
-
+#blah
+  # browser()
 
   if("haven" %in% rownames(installed.packages()) == FALSE) {install.packages("haven")}
   if("stringr" %in% rownames(installed.packages()) == FALSE) {install.packages("stringr")}
   library(stringr)
   library(haven)
   df <- read.delim(definitions, header=FALSE, sep="'")
+  # df[,2] <- as.character(df[,2])
+
+  df[,2][is.na(df[,2])] <- ""  #TEST
+
+  # df[,2] <- as.integer(df[,2])
+
+    # data[,2][is.na(data[,2])] <- " "
 
   ##added section that allows for variable levels to be entered in as strings
   df<- df[,colMeans(is.na(df)) == 0]
+
   df1 <-NA
   df2 <- NA
   rows <- nrow(df)
@@ -41,11 +50,21 @@ import_labels <- function(dataset, definitions){
     }
     df1<-rbind(df1,vec)
   }
+
+  anumeric_dummy_numeric_vector <- "321321"
   df<-df1[-1,] #trims first row (not)
+
+
+  df[, 1][df[,1] == " "] <- anumeric_dummy_numeric_vector ##This is dummy variable in place of a blank " " space in the R script.
+  # df<-df1[-1,] #trims first row (not)
   ##ENDS string formatting section
 
-  data <- read.csv(dataset)
+  data <- read.csv(dataset, as.is=TRUE, na.string="astring_that_doesnt_exist")
+  data[is.na(data)] <- anumeric_dummy_numeric_vector
+
   definitions <- df[,1:2]
+
+
   nrow(df)
   variable_names <- c(NA)
   for(i in 1:nrow(df)){
@@ -94,6 +113,7 @@ import_labels <- function(dataset, definitions){
   for(ii in 1:length(num_levels)){
     levelz <- (NA)
     labelz <- (NA)
+    # browser()
     for(i in 1:num_levels[ii]){
       levelz[i] <- as.numeric(df2[i+starting_value, 2])
       labelz[i] <- df2[i+starting_value, 3]
