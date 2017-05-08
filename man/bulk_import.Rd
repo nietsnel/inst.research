@@ -12,7 +12,7 @@ bulk_import(folder_path, merge = FALSE, file_type = "txt")
 \item{merge:}{Can take on either two values. False: (the default) returns all imported datasets. TRUE: bulk_import attempts to return a single file containing all of the individual datasets. This currently only works if all datasets contain all of the same variables.}
 }
 \value{
-Returns individual loaded dataset OR a single combined dataset
+Returns individual loaded dataset OR a single combined dataset and the raw labels.
 }
 \description{
 A function to import multiple .txt or .csv files into R.

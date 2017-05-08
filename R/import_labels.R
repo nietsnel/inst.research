@@ -56,11 +56,18 @@ import_labels <- function(dataset, definitions){
 
 
   df[, 1][df[,1] == " "] <- anumeric_dummy_numeric_vector ##This is dummy variable in place of a blank " " space in the R script.
+  df[, 1][df[,1] == ""] <- anumeric_dummy_numeric_vector ##This is dummy variable in place of a blank " " space in the R script.
+
   # df<-df1[-1,] #trims first row (not)
   ##ENDS string formatting section
 
   data <- read.csv(dataset, as.is=TRUE, na.string="astring_that_doesnt_exist")
   data[is.na(data)] <- anumeric_dummy_numeric_vector
+
+  data[data == ""] <- anumeric_dummy_numeric_vector #test
+  data[data == " "] <- anumeric_dummy_numeric_vector #test
+
+
 
   definitions <- df[,1:2]
 
