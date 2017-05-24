@@ -5,6 +5,7 @@
 #' @param label_values = TRUE (default). TRUE outputs your dataset with MHEC value labels attached.
 #' @param label_variables = TRUE (default). TRUE outputs your dataset with MHEC variable labels attached.
 #' @param labels_output = FALSE (default). TRUE outputs the labels used in the function.
+#' @param manual_label_input specify labels and definitions manually in R. [examples forthcoming]
 #' @return Returns dataset with USM value labels and or variable names attached (depending on selected option).
 #' @examples usm_labels(dataset=my_dataset, label_values = TRUE, label_variables = FALSE)
 #' @keywords MHEC, University system of maryland, IR
