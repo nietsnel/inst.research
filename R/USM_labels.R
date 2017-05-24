@@ -11,15 +11,19 @@
 #' @author Jordan L. Prendez, \email{jordanprendez@@gmail.com}
 #' @export
 
-usm_labels <- function(dataset       = NULL,
-                           label_values = TRUE,
-                           label_variables = TRUE,
-                           labels_output = FALSE) {
+usm_labels <- function(dataset                 = NULL,
+                           label_values        = TRUE,
+                           label_variables     = TRUE,
+                           labels_output       = FALSE,
+                           label_matrix        = NULL,
+                           manual_label_input = NULL){
 
   dat <- dataset
   label_values2 <- label_values
   label_variables2 <- label_variables
   labels_output2 <- labels_output
+  label_matrix2 <- label_matrix
+  manual_label_input2 <- manual_label_input
   dat <- data.frame(lapply(dat, as.character), stringsAsFactors=FALSE) ##Must be in character form.
 
 
@@ -31,6 +35,64 @@ usm_labels <- function(dataset       = NULL,
   library(stringr)
   library(haven)
   library(tidyverse)
+
+  if(is.null(manual_label_input2)==FALSE){
+
+    data_def <- manual_label_input2
+    starting_vector <- matrix(data=data_def, byrow=TRUE)
+    variable_column <- rep(NA,length(starting_vector))
+    value_column <- rep(NA,length(starting_vector))
+
+    values_label_matrix <- cbind(variable_column,starting_vector, value_column)
+    for(iter in 1:length(starting_vector)){
+
+      if(str_detect(string=starting_vector[iter], "var.name_")==TRUE){
+        values_label_matrix[iter+1,1] <- values_label_matrix[iter,2]
+        values_label_matrix[iter,2] <- NA
+      }
+    }
+    values_label_matrix <- values_label_matrix[rowSums(is.na(values_label_matrix))!=3, ]
+# browser()
+    for(iter in 1:dim(values_label_matrix)[1]){
+      values_label_matrix[iter-1,3] <- values_label_matrix[iter,2]
+
+    }
+
+    values_label_matrix[seq(2, dim(values_label_matrix)[1], 2),] <- NA
+    values_label_matrix <- values_label_matrix[rowSums(is.na(values_label_matrix))!=3, ]
+
+    for(i in 1:dim(values_label_matrix)[1]){
+      if(is.na(values_label_matrix[i,1])==TRUE)
+        values_label_matrix[i,1] <- values_label_matrix[i-1,1]
+    }
+
+    values_label_matrix[,1]<- str_match(string=values_label_matrix[,1], "var.name_(.*)")[,2]
+    values_label_matrix <- as.data.frame(values_label_matrix)
+
+
+
+    # dat <- data
+    for(iter_data_var in 1:length(dat)){
+
+      data_variable <- names(dat[iter_data_var])
+
+      for(i in 1:dim(values_label_matrix)[1]){  ##Changes variable in df of interest.
+        variable_name<- as.character((values_label_matrix[i,1]))
+
+        if(variable_name==data_variable){
+
+          data_value_vector <- (as.character(dat[,variable_name]))
+          definition_value<- as.character(values_label_matrix[i,2])
+          definition_label <- as.character(values_label_matrix[i,3])
+
+          data_value_vector[data_value_vector==definition_value]<-definition_label
+
+          dat[,iter_data_var] <- data_value_vector
+        }
+      }
+    }
+  }
+
 
 
 
@@ -680,6 +742,7 @@ usm_labels <- function(dataset       = NULL,
 
 
 
+
   #  faster method --------------------------------------------------------------
 
   if(label_values2==TRUE){
@@ -705,6 +768,42 @@ usm_labels <- function(dataset       = NULL,
       }
     }
 }
+
+
+# external label matrix -------------------------------------------------------------
+
+
+#  faster method --------------------------------------------------------------
+if(is.null(label_matrix2) == FALSE){
+
+  values_label_matrix <- label_matrix2
+
+  if(label_values2==TRUE){
+
+    # dat <- data
+    for(iter_data_var in 1:length(dat)){
+
+      data_variable <- names(dat[iter_data_var])
+
+      for(i in 1:dim(values_label_matrix)[1]){  ##Changes variable in df of interest.
+        variable_name<- as.character((values_label_matrix[i,1]))
+
+        if(variable_name==data_variable){
+
+          data_value_vector <- (as.character(dat[,variable_name]))
+          definition_value<- as.character(values_label_matrix[i,2])
+          definition_label <- as.character(values_label_matrix[i,3])
+
+          data_value_vector[data_value_vector==definition_value]<-definition_label
+
+          dat[,iter_data_var] <- data_value_vector
+        }
+      }
+    }
+  }
+
+}
+
 
 
 
@@ -888,11 +987,10 @@ usm_labels <- function(dataset       = NULL,
 
   }
 
-  if(label_variables2 == TRUE | label_values2 == TRUE) {
+  if(label_variables2 == TRUE | label_values2 == TRUE | is.null(manual_label_input2)==FALSE) {
         output_file<<-dat
   }
 }
-
 
 
 
