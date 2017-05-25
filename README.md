@@ -1,27 +1,56 @@
-R Markdown
-----------
+inst.research
+=============
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+To install the latest version from github:
 
 ``` r
-summary(cars)
+# install.packages("devtools")
+devtools::install_github("nietsnel/inst.research")
 ```
 
-    ##      speed           dist       
-    ##  Min.   : 4.0   Min.   :  2.00  
-    ##  1st Qu.:12.0   1st Qu.: 26.00  
-    ##  Median :15.0   Median : 36.00  
-    ##  Mean   :15.4   Mean   : 42.98  
-    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
-    ##  Max.   :25.0   Max.   :120.00
+### Using usm\_labels()
 
-Including Plots
----------------
+usm\_labels is a fucntion to attach default mhec variable labels to a dataframe currently in memory. Furthermore, usm\_labels can also be used to re-label variables using custom input from two additional methods.
 
-You can also embed plots, for example:
+#### 1. Define value-label pairs in R.
 
-![](README_files/figure-markdown_github/pressure-1.png)
+You can define value-label pairs directly in R. This is useful when there the list of value-label pairings are short. This can be accomplished using the following simple formatting.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+``` r
+data_def<- c("var.name_IDType"   , 1, "Student", 2, "faculty", 3, "staff",
+             "var.name_USCitizen", 1, "Yes", 2, "No",
+             "var.name_Gender", 1, "male", 2, "female",
+             "var.name_Degree", 40, "BA", 60, "MA", 81, "AA")
+```
+
+Note: each variable name must follow the "var.name\_" handle. Secondly each value (e.g., 1, 2, etc) must be paired with a label (eg., "student").
+
+Once the variable have been defined, call the object using the manual\_label\_input parameter in the usm\_labels function as shown below.
+
+``` r
+usm_labels(dataset=your_dataset, label_variables = FALSE, label_values=FALSE, manual_label_input=data_def)
+```
+
+#### 2. Define value-label pairs using a data.frame
+
+A dataframe containing value-label pairs can be used for relabelling. This is useful when there are a large amount of value-label pairings stored in an external comma separated file.
+
+Regardless of the file type, once imported, the dataframe must be in the following format.
+
+    "Degree",        "86",  "Doc. Other",
+    "Degree",        "87",  "Non-Deg Grad",
+    "Degree",        "99",  "Multi Major",
+    "DependStatus",  "0",   "Unknown",
+    "DependStatus",  "1",   "Dependent",
+    "DependStatus",  "2",   "Independent",
+    "DistEdFlag",    "1",   "Exclusively",
+    "DistEdFlag",    "2",   "Some",
+    "Gender",        "1",   "Male", "2", "Female"
+
+*Note*: Each line must begin with the variable name that the value-label pair corresponds to.
+
+Load the definitions
+
+``` r
+usm_labels(dataset=your_dataset, label_variables = FALSE, label_values=FALSE, label_matrix=data_def_matrix)
+```
