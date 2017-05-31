@@ -8,9 +8,15 @@
 #' @param manual_label_input specify labels and definitions manually in R. [examples forthcoming]
 #' @return Returns dataset with USM value labels and or variable names attached (depending on selected option).
 #' @examples usm_labels(dataset=my_dataset, label_values = TRUE, label_variables = FALSE)
+#' @examples data_def<- c("var.name_IDType"   , 1, "Student", 2, "faculty", 3, "staff","var.name_USCitizen", 1, "Yes", 2, "No", "var.name_Degree", 40, "BA", 60, "MA", 81, "AA")
+#' @examples usm_labels(dataset=res2, label_variables = FALSE, label_values=FALSE, manual_label_input=data_def)
 #' @keywords MHEC, University system of maryland, IR
 #' @author Jordan L. Prendez, \email{jordanprendez@@gmail.com}
-#' @export
+#' @seealso \href{https://github.com/nietsnel/inst.research/blob/master/README.md}{Online example}
+
+
+
+
 
 usm_labels <- function(dataset                 = NULL,
                            label_values        = TRUE,
@@ -31,7 +37,9 @@ usm_labels <- function(dataset                 = NULL,
 
   if("haven" %in% rownames(installed.packages()) == FALSE) {install.packages("haven")}
   if("stringr" %in% rownames(installed.packages()) == FALSE) {install.packages("stringr")}
-  if("tidyverse" %in% rownames(installed.packages()) == FALSE) {install.packages("tidyverse")}
+  if("tidyr" %in% rownames(installed.packages()) == FALSE) {install.packages("tidyr")}
+  if("dplyr" %in% rownames(installed.packages()) == FALSE) {install.packages("dplyr")}
+
 
   library(stringr)
   library(haven)
@@ -774,12 +782,11 @@ usm_labels <- function(dataset                 = NULL,
 # external label matrix -------------------------------------------------------------
 
 
-#  faster method --------------------------------------------------------------
 if(is.null(label_matrix2) == FALSE){
 
   values_label_matrix <- label_matrix2
 
-  if(label_values2==TRUE){
+  # if(label_values2==TRUE){
 
     # dat <- data
     for(iter_data_var in 1:length(dat)){
@@ -801,7 +808,7 @@ if(is.null(label_matrix2) == FALSE){
         }
       }
     }
-  }
+
 
 }
 
@@ -988,11 +995,10 @@ if(is.null(label_matrix2) == FALSE){
 
   }
 
-  if(label_variables2 == TRUE | label_values2 == TRUE | is.null(manual_label_input2)==FALSE) {
+  if(label_variables2 == TRUE | label_values2 == TRUE | is.null(manual_label_input2)==FALSE | is.null(label_matrix2) == FALSE) {
         output_file<<-dat
   }
 }
-
 
 
 

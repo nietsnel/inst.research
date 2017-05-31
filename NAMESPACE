@@ -2,4 +2,3 @@
 
 export(bulk_import)
 export(import_labels)
-export(usm_labels)
