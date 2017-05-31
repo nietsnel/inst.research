@@ -13,8 +13,8 @@
 #' @keywords MHEC, University system of maryland, IR
 #' @author Jordan L. Prendez, \email{jordanprendez@@gmail.com}
 #' @seealso \href{https://github.com/nietsnel/inst.research/blob/master/README.md}{Online example}
-
-
+#' usm_labels()
+#' @export
 
 
 

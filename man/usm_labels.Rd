@@ -32,6 +32,7 @@ usm_labels(dataset=res2, label_variables = FALSE, label_values=FALSE, manual_lab
 }
 \seealso{
 \href{https://github.com/nietsnel/inst.research/blob/master/README.md}{Online example}
+usm_labels()
 }
 \author{
 Jordan L. Prendez, \email{jordanprendez@gmail.com}
