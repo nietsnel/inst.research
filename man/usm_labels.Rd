@@ -27,6 +27,11 @@ Specifically, this file renames database style names to those more appropriate f
 }
 \examples{
 usm_labels(dataset=my_dataset, label_values = TRUE, label_variables = FALSE)
+data_def<- c("var.name_IDType"   , 1, "Student", 2, "faculty", 3, "staff","var.name_USCitizen", 1, "Yes", 2, "No", "var.name_Degree", 40, "BA", 60, "MA", 81, "AA")
+usm_labels(dataset=res2, label_variables = FALSE, label_values=FALSE, manual_label_input=data_def)
+}
+\seealso{
+\href{https://github.com/nietsnel/inst.research/blob/master/README.md}{Online example}
 }
 \author{
 Jordan L. Prendez, \email{jordanprendez@gmail.com}
